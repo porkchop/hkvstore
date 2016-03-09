@@ -1,0 +1,27 @@
+{
+  "name": "hkvstore",
+  "description": "Simple key value store as a web service",
+  "version": "0.0.1",
+  "author": {
+    "name": "Aaron Caswell",
+    "email": "aaron@captureplay.com",
+    "url": "https://github.com/porkchop"
+  },
+  "dependencies": {
+    "body-parser": "^1.15.0",
+    "express": "^4.13.4"
+  },
+  "devDependencies": {
+    "mocha": "^2.4.5",
+    "should": "^8.2.2",
+    "supertest": "^1.2.0"
+  },
+  "scripts": {
+    "start": "node ./server.js",
+    "test": "make test"
+  },
+  "engines": {
+    "node": "5.0"
+  },
+  "license": "MIT"
+}
