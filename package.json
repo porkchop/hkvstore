@@ -9,7 +9,9 @@
   },
   "dependencies": {
     "body-parser": "^1.15.0",
-    "express": "^4.13.4"
+    "commander": "^2.9.0",
+    "express": "^4.13.4",
+    "lokijs": "^1.3.16"
   },
   "devDependencies": {
     "mocha": "^2.4.5",
@@ -17,7 +19,7 @@
     "supertest": "^1.2.0"
   },
   "scripts": {
-    "start": "node ./server.js",
+    "start": "make start",
     "test": "make test"
   },
   "engines": {

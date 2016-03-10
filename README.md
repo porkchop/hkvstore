@@ -4,9 +4,7 @@ A small Node.js web service that takes in JSON on a POST request and returns the
 
 ## Install
 
-```
-$ npm install
-```
+You will need npm and Node.js 5.0+ installed to run the start and test commands.
 
 ## Run
 
