@@ -1,11 +1,22 @@
+'use strict';
+
 var request = require('supertest');
 var should = require('should');
 var app = require('./app.js');
 var crypto = require('crypto');
+var loki = require('lokijs');
+
+app.db = new loki('test-db.json');
 
 describe('hkvstore', () => {
+  before(function(done) {
+    app.db.loadDatabase({}, done);
+  });
+
   beforeEach(function() {
-    app.db = {}; // Clear the db
+    app.db
+      .getCollection('hashes')
+      .removeWhere(() => {return true;}); // Clear the db
   });
 
   it('should get the correct json for a value that is set', (done) => {

@@ -1,3 +1,5 @@
+'use strict';
+
 var express = require('express');
 var bodyParser = require('body-parser');
 var crypto = require('crypto');
@@ -5,12 +7,12 @@ var crypto = require('crypto');
 var app = express();
 app.use(bodyParser.json());
 
-app.db = {};  // Dead simple database
-
 app.get('/:hash', (req, res) => {
-  var json = app.db[req.params.hash];
-  if(json) {
-    res.status(200).json(json);
+  var entry = app.db
+    .getCollection('hashes')
+    .findOne({'hash': req.params.hash});
+  if(entry) {
+    res.status(200).json(entry.json);
   } else {
     res.status(404).json({
       'description': 'Hash-JSON pair not found.'
@@ -24,7 +26,18 @@ app.post('/', (req, res) => {
     .update(JSON.stringify(json))
     .digest('hex');
 
-  app.db[hash] = json;
+  var hashes = app.db.getCollection('hashes');
+  var entry = hashes.findOne({'hash': hash});
+  if(entry) {
+    entry.json = json; // Hash collision?? VERY unlikely, but just in case, let's set it with the latest json.
+    hashes.update(entry);
+  } else {
+    hashes.insert({
+      'hash': hash,
+      'json': json
+    });
+  }
+
   res.status(201).json({
     hash: hash
   });
